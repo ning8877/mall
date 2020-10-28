@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import tabBar from './TabBar'
-import tabBarItem from './TabBarItem'
+import tabBar from 'common/tabbar/TabBar'
+import tabBarItem from 'common/tabbar/TabBarItem'
 export default{
   name:'MainTabBar',
   data() {
     return {
-      src:"./assets/img/tabbar/home.svg",
+      
     }
   },
   components:{
