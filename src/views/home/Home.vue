@@ -25,7 +25,7 @@
   import tabControl from 'components/content/tabControl/TabControl'
   import backTop from 'components/content/backTop/BackTop'
 
-  import navBar from 'common/nvabar/NavBar'
+  import navBar from 'common/navbar/NavBar'
   import scroll from 'common/scroll/Scroll'
 
   import homeSwiper from './childComp/HomeSwiper'
@@ -42,6 +42,7 @@
         isShowMessage:false,
         tabOffsetTop:0,
         isTabFixed:false,
+        saveY:0,
         message:"加载更多",
         banners:[],
         recommends:[],
@@ -84,6 +85,14 @@
       this.swiperImageLoad()
     },
 
+    // 离开home页面时，保存滚动的位置
+    activated(){
+      this.$refs.scroll.scroll.scrollTo(0,this.saveY,0)
+      this.$refs.scroll.scroll.refresh()
+    },
+    deactivated(){
+      this.saveY = this.$refs.scroll.scroll.y
+    },
     methods:{
       swiperImageLoad() {
         // 获取tabControl的offsetTop
@@ -162,7 +171,6 @@
 }
 .tab-control{
   position: relative;
-  top:-1px;
   z-index: 10;
 }
 .scroll_content{

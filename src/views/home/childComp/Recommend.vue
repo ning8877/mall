@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #recommand{
   display: flex;
   justify-content: space-evenly;

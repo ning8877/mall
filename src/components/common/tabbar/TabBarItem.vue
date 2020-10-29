@@ -20,7 +20,7 @@ export default {
       path:String,
       activeColor:{
         type:String,
-        default:"deepPink",
+        default:"#FF5777",
       }
   },
   computed:{

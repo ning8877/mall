@@ -64,8 +64,8 @@ export default {
           }
           
           //2秒后，再次上拉加载，设置延迟，以免重复加载
-         /* setTimeout(()=>{
-            this.scroll && this.scroll.finishPullup()
+        /*  setTimeout(()=>{
+            this.scroll && this.scroll.scroll.finishPullup()
           },2000) */
         })
       }

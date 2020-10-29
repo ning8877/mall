@@ -15,6 +15,7 @@ Vue.use(VueRouter)
 
 
 const Home = () => import('../views/home/Home.vue')
+const Detail = () => import('../views/detail/Detail.vue')
 const Category = () => import('../views/category/Category.vue')
 const Cart = () => import('../views/shopcart/ShopCart.vue')
 const Profile = () => import('../views/profile/Profile.vue')
@@ -28,6 +29,11 @@ const routes = [
     path: '/home',
     name: 'home',
     component:Home
+  },
+  {
+    path: '/detail',
+    name: 'detail',
+    component:Detail
   },
   {
     path: '/category',

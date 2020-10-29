@@ -1,0 +1,25 @@
+/* .van-swipe__indicators {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  bottom: 8px;
+} */
+
+.van-swipe__indicator{
+  box-sizing: border-box;
+  width: 8px;
+  height: 8px;
+  background-color:#fff;
+  line-height: 8px;
+  text-align: center;
+  font-size: 12px;
+  margin: 0 5px;
+  border-radius: 100%;
+  opacity: 1.0;
+}
+
+.van-swipe__indicator--active{
+  background-color: #f13e3a;
+  opacity: 1.0;
+}
