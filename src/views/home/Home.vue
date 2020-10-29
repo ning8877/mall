@@ -1,18 +1,18 @@
 <template>
   <div id="home">
-    <div class="home-nav">
-      <nav-bar>
-        <div slot="center">购物街</div>
-      </nav-bar>
-    </div>
+    <nav-bar  class="home-nav"><div slot="center">购物街</div></nav-bar>
+    <tab-control class="tab-control" :titles= "titles" ref="tabControl_1"  
+      v-show="isTabFixed" @tabChange = "tabClick"></tab-control>
 
     <scroll class="scroll_content" ref = "scroll" :probeType='3' :pullUpLoad = "true" 
       @pullingUp="loadMore" @scrollPosition = "getPosition">
+
       <home-swiper :banners = "banners"  @swiperImageLoad = 'swiperImageLoad'></home-swiper>
       <recommend :recommends = "recommends"></recommend>
       <feature></feature>
-      <tab-control class="tab-control" :titles= "titles" ref="tabControl"  @tabChange = "tabClick"></tab-control>
+      <tab-control :titles= "titles" ref="tabControl" @tabChange = "tabClick"></tab-control>
       <goods-list :goodsList="goods[type].list"></goods-list>
+      <p class="tip" v-show="isShowMessage">{{message}}</p>
     </scroll>
 
     <back-top @click.native="backTop" v-show="isShow"></back-top>
@@ -39,6 +39,10 @@
     data(){
       return {
         isShow:false,
+        isShowMessage:false,
+        tabOffsetTop:0,
+        isTabFixed:false,
+        message:"加载更多",
         banners:[],
         recommends:[],
         titles:[
@@ -65,14 +69,11 @@
       backTop
     },
     created(){
-      getHomeMultidata().then(res =>{
-        this.banners = res.data.banner.list
-        this.recommends = res.data.recommend.list
-      });
+      this.getHomeMultidata()
+
       this.getHomeGoods('pop')
       this.getHomeGoods('new')
       this.getHomeGoods('sell')
-
     },
 
     mounted(){
@@ -80,28 +81,35 @@
       this.$bus.$on("goodsImgLoad",()=>{
         refresh()
       })
+      this.swiperImageLoad()
     },
 
     methods:{
       swiperImageLoad() {
         // 获取tabControl的offsetTop
         // 通过$el属性获取组件中的元素
-        // this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop;
-        console.log('swP')
+        this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop;
       },
 
       // 事件监听
-      tabClick(type){
+      tabClick(index,type){
         this.type = type
+        // 使两个tabControl的值保持一直
+        this.$refs.tabControl.currentIndex = index
+        this.$refs.tabControl_1.currentIndex = index
       },
 
       loadMore(){
-        console.log("loadMore")
-        // this.getHomeGoods(this.type)
+        this.isShowMessage = true
+        this.getHomeGoods(this.type)
       },
 
       getPosition(position){
+        // 1.判断backtop的显示
         this.isShow = -position.y > 1000
+        // 2.tabControl吸顶效果
+        this.isTabFixed = (- position.y) >= this.tabOffsetTop
+
       },
 
       backTop(){
@@ -113,8 +121,10 @@
       // 请求多个数据
       getHomeMultidata() {
         getHomeMultidata().then(res => {
-          this.banners = res.data.banner.list;
-          this.recommends = res.data.recommend.list;
+          if(res && res.data){
+            this.banners = res.data.banner.list
+            this.recommends = res.data.recommend.list
+          }
         })
       },
 
@@ -122,33 +132,37 @@
       getHomeGoods(type) {
         let page = this.goods[type].page + 1
         getHomeGoods(type, page).then(res => {
-          this.goods[type].list.push(...res.data.list)
-          this.goods[type].page += 1 
-          // this.$refs.scroll.finishPullUp()
+          if(res && res.data.list){
+            this.goods[type].list.push(...res.data.list)
+            this.goods[type].page += 1 
+            this.isShowMessage =false
+          }
         })
       },
     }
   }
 </script>
+
 <style scoped>
-/* #home{
-  /* padding-bottom: 49px; */
-  /* height: 100vh; */
-/* } */ 
 .home-nav{
   height: 44px;
   background-color: var(--color-tint);
   color:#fff;
-  position:fixed;
+  /* 在浏览器 */
+  /* position:fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index:10;
+  z-index:10; */
+}
+.fixed{
+  position: fixed;
+  top:44px; 
 }
 .tab-control{
-  position: sticky;
-  top:44px;
+  position: relative;
+  top:-1px;
   z-index: 10;
 }
 .scroll_content{
@@ -157,4 +171,7 @@
   top:44px;
   bottom: 49px;
 } 
+.tip{
+  text-align: center;
+}
 </style>
