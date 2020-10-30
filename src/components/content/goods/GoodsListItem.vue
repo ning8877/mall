@@ -1,6 +1,6 @@
 <template>
   <div class="goodsItem" @click="itemClick">
-    <img :src="goodsItem.show.img" @load="imgLoad()">
+    <img :src="showImage" @load="imgLoad()">
     <div class="goodsInfo">
       <p class="desc">{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -21,20 +21,15 @@ export default {
     },
   },
   computed:{
-    showImage:{
-      set:function(){
-        this.showImage = this.goodsItem.img || this.goodsItem.image || this.goodsItem.show.img
-      },
-      get:function(){
-        return this.showImage
-      },
+    showImage() {
+      return this.goodsItem.img || this.goodsItem.image || this.goodsItem.show.img
     }
   },
   methods:{
     itemClick(){
       let iid = this.goodsItem.iid;
       // 跳转到详情页面
-      this.$router.push({path:'/detail',query:{iid}})
+       this.goodsItem.iid ? this.$router.push({path:'/detail',query:{iid:this.goodsItem.iid}}): this.$toast.show('该页面尚未完成', 1500)
     },
     imgLoad(){
       this.$bus.$emit('goodsImgLoad')

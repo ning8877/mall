@@ -3,7 +3,7 @@
     <keep-alive exclude="detail">
       <router-view></router-view>
     </keep-alive>
-    <mainTabBar></mainTabBar>
+    <mainTabBar  v-show="$route.path!=='/detail'"></mainTabBar>
   </div>
 </template>
 

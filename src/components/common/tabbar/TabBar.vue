@@ -1,12 +1,12 @@
 <template>
-<div id="tab-bar">
+<div id="tabBar">
   <slot></slot>
 </div>
 </template>
 
 <script>
 export default {
-  name:'TabBar',
+  name:'tabBar',
   data() {
     return {
 
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style>
-#tab-bar{
+#tabBar{
   display: flex;
   background-color: #f6f6f6;
   position: fixed;
@@ -25,6 +25,7 @@ export default {
   left: 0;
   bottom: 0px;
   box-shadow: 0 -1px 1px rgba(100, 100, 100,0.1);
+  z-index: 9;
 }
 
 </style>

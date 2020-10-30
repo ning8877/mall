@@ -75,6 +75,7 @@
       this.getHomeGoods('pop')
       this.getHomeGoods('new')
       this.getHomeGoods('sell')
+
     },
 
     mounted(){
@@ -118,7 +119,6 @@
         this.isShow = -position.y > 1000
         // 2.tabControl吸顶效果
         this.isTabFixed = (- position.y) >= this.tabOffsetTop
-
       },
 
       backTop(){
@@ -141,7 +141,7 @@
       getHomeGoods(type) {
         let page = this.goods[type].page + 1
         getHomeGoods(type, page).then(res => {
-          if(res && res.data.list){
+          if(res){
             this.goods[type].list.push(...res.data.list)
             this.goods[type].page += 1 
             this.isShowMessage =false
