@@ -36,6 +36,7 @@ export default {
 
 <style scoped>
 #baseInfo{
+  width: 100vw;
   margin-top: 15px;
   padding:5px 8px;
   color:#999;

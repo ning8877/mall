@@ -1,5 +1,5 @@
 <template>
-  <div id="param-info" v-if="paramInfo != null">
+  <div id="param-info" v-if="Object.keys(paramInfo).length !== 0">
     <table v-for="(item,index) in paramInfo.sizes" :key="`${index}size`" class="info-size">
       <tr v-for="(tr,index) in item" :key="`${index}sizetr`">
         <td v-for="(td,index) in tr" :key="`${index}sizetd`">{{td}}</td>
@@ -43,6 +43,7 @@ export default {
 
 <style>
 #param-info {
+  width: 100vw;
   padding: 20px 15px;
   font-size: 14px;
   border-bottom: 5px solid #f2f5f8;

@@ -32,7 +32,11 @@ export default {
        this.goodsItem.iid ? this.$router.push({path:'/detail',query:{iid:this.goodsItem.iid}}): this.$toast.show('该页面尚未完成', 1500)
     },
     imgLoad(){
-      this.$bus.$emit('goodsImgLoad')
+      if(this.$route.path.indexOf('/home')>-1){
+        this.$bus.$emit('homeImageLoad')
+      }else if(this.$route.path.indexOf('/detail')>-1){
+        this.$bus.$emit('detailImageLoad')
+      }
     } 
   }
 }

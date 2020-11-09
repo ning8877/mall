@@ -54,7 +54,8 @@ export default {
 
 <style scoped>
 #shopInfo{
-  padding: 25px 8px;
+  width: 100vw;
+  padding: 25px 8px 25px 8px;
   border-bottom: 5px solid #f2f5f8;
 }
 .info-top{

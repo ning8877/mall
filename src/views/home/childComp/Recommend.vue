@@ -1,9 +1,7 @@
 <template>
   <div id="recommand">
     <div class="recommand_item" v-for="(item,index) in recommends" :key="index">
-      <a :href="item.link">
-        <img :src=item.image alt="">
-      </a>
+      <img :src=item.image alt="">
       <div class="text">{{item.title}}</div>
     </div>
   </div>
@@ -26,16 +24,18 @@ export default {
 <style scoped>
 #recommand{
   display: flex;
-  justify-content: space-evenly;
+  width: 100%;
   background-color: var(--color-background);
   padding:10px 0 20px;
   border-bottom: 8px solid #eee;
 }
-
+.recommand_item{
+  flex: 1;
+}
 .recommand_item img{
   border-radius: 50%;
-  height: 80px;
-  margin-bottom:10px
+  height: 68px;
+  margin-bottom:10px;
 }
 #recommand .text{
   color:var(--color-text);

@@ -28,6 +28,7 @@ export default {
 <style scoped>
 @import '~assets/css/resetVui.css';
 .detailSwiper{
+  width: 100vw;
   height: 300px;
   overflow: hidden;
 }

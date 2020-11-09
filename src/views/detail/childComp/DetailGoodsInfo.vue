@@ -1,5 +1,5 @@
 <template>
-  <div id="detail-goods-info" v-if="goodsInfo !== null">
+  <div id="detail-goods-info" v-if="Object.keys(goodsInfo).length !== 0">
     <div class="info-desc clear-fix">
       <div class="start"></div>
       <div class="info-desc">{{goodsInfo.desc}}</div>
@@ -51,7 +51,8 @@ export default {
 
 <style scoped>
 #detail-goods-info{
-  padding:0 10px;
+  width: 100vm;
+  padding:0px 10px;
   border-bottom: 5px solid #f2f5f8;
 }
 
@@ -93,6 +94,7 @@ export default {
   color: #333;
   font-size: 15px;
 }
+
 .info-list img {
   width: 100%;
 }

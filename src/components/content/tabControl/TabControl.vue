@@ -39,7 +39,8 @@ export default {
 .tabControl{
   display: flex;
   text-align: center;
-  color:var(--color-text)
+  color:var(--color-text);
+  font-size: 14px;
 }
 .tabControl .tabControlItem{
   flex: 1;

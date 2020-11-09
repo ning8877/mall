@@ -6,7 +6,7 @@
       </div>
       <div slot="center" class="center">
         <span class="item" v-for="(item,index) in titles"  :key="item.text" @click="itemClick(item.type,index)" 
-          :class="{active:index==currentIndex}">{{item.text}}</span>
+          :class="{detail_active:index==currentIndex}">{{item.text}}</span>
       </div>
     </nav-bar>
   </div>
@@ -45,9 +45,10 @@ export default {
 
 <style scoped>
 .navBar{
+  width: 100vm;
   box-shadow: 0 1px 1px rgba(100, 100, 100, 0.2);
 }
-.active{
+.detail_active{
   color:var(--color-tint)
 }
 .left{

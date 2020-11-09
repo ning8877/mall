@@ -1,5 +1,5 @@
 <template>
-  <div id="comment-info" v-if="commentInfo !== null">
+  <div id="comment-info">
     <div class="info-header">
       <div class="header-tile">用户评价</div>
       <div class="header-more">
@@ -7,16 +7,21 @@
         <!-- <van-icon name="arrow-down" /> -->
       </div>
     </div>
-    <div class="info-user" v-if="commentInfo.user">
-      <img class="user-avatar" :src="commentInfo.user.avatar" alt="">
-      <span class="user-name">{{commentInfo.user.uname}}</span>
-    </div>
-    <div class="info-detail">
-      <p>{{commentInfo.content}}</p>
-      <div class="info-other">
-        <span class="date">{{commentInfo.created | showDate}}</span>
-        <span>{{commentInfo.style}}</span>
+    <div v-if="Object.keys(commentInfo).length !== 0">
+      <div class="info-user" v-if="commentInfo.user">
+        <img class="user-avatar" :src="commentInfo.user.avatar" alt="">
+        <span class="user-name">{{commentInfo.user.uname}}</span>
       </div>
+      <div class="info-detail">
+        <p>{{commentInfo.content}}</p>
+        <div class="info-other">
+          <span class="date">{{commentInfo.created | showDate}}</span>
+          <span>{{commentInfo.style}}</span>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+       <p class="tip">暂无评论</p>
     </div>
   </div>
 </template>
@@ -38,12 +43,13 @@ export default {
       let date = new Date(value * 1000);
       return formatDate(date, 'yyyy-MM-dd')
     }
-  }
+  },
 }
 </script>
 
 <style scoped>
 #comment-info{
+  width: 100vm;
   padding: 5px 12px 15px;
   color: #333;
   border-bottom: 5px solid #f2f5f8;
@@ -86,5 +92,12 @@ export default {
 }
 .date{
   margin-right: 5px;
+}
+/* 暂无评论 */
+.tip{
+  font-size: 14px;
+  padding:10px 0px;
+  color: #777;
+  line-height: 1.5;
 }
 </style>

@@ -80,19 +80,21 @@
 
     mounted(){
       var refresh = debounce(this.$refs.scroll.refresh,500)
-      this.$bus.$on("goodsImgLoad",()=>{
+      this.$bus.$on("homeImageLoad",()=>{
         refresh()
       })
       this.swiperImageLoad()
+      // this.$refs.scroll.scroll.refresh()
     },
 
     // 离开home页面时，保存滚动的位置
     activated(){
-      this.$refs.scroll.scroll.scrollTo(0,this.saveY,0)
       this.$refs.scroll.scroll.refresh()
+      this.$refs.scroll.scroll.scrollTo(0,this.saveY,0)
     },
     deactivated(){
       this.saveY = this.$refs.scroll.scroll.y
+      // 取消事件总线的监听
     },
     methods:{
       swiperImageLoad() {
@@ -141,7 +143,7 @@
       getHomeGoods(type) {
         let page = this.goods[type].page + 1
         getHomeGoods(type, page).then(res => {
-          if(res){
+          if(res && res.data.list){
             this.goods[type].list.push(...res.data.list)
             this.goods[type].page += 1 
             this.isShowMessage =false

@@ -20,6 +20,7 @@ export default {
 
   .slide img {
     width: 100%;
-    vertical-align: middle;
+    position: relative;
+    top:-1px;
   }
 </style>
