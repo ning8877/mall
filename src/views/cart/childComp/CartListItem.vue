@@ -11,7 +11,7 @@
       <div class="item-desc">{{cartListItem.desc}}</div>
       <div class="info-bottom">
         <div class="item-price">¥{{cartListItem.price}}</div>
-        <div clss="item-count">x{{cartListItem.count}}</div>
+        <div clss="item-count"><van-stepper :value="cartListItem.count" async-change @change="onChange" /></div>
       </div>
     </div>
   </div>
@@ -39,8 +39,17 @@ export default {
       //强制刷新
       this.$forceUpdate() 
       this.$store.commit({type:'updateSingle',product:this.cartListItem ,status:this.cartListItem.checked})
-    }
-  },
+    },
+    onChange(value){
+      this.$toast.loading({ forbidClick: true })
+      this.$forceUpdate() 
+      this.$store.dispatch('changeCount',{product:this.cartListItem, count:value}).then(res=>{
+        if(res){
+          this.$toast.clear()
+        }
+      })
+    },
+  }
 }
 </script>
 
@@ -102,6 +111,7 @@ export default {
 .info-bottom .item-price{
   color: orangered;
   float: left;
+  line-height: 28px;
 }
 .info-bottom .item-count{
   float: right;
